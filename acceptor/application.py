@@ -13,7 +13,6 @@ class Application(fix.Application):
     orderID = 0
     execID = 0
 
-
     def onCreate(self, sessionID):
         """onCreate"""
         print("onCreate : Session (%s)" % sessionID.toString())
@@ -100,7 +99,9 @@ class Application(fix.Application):
             executionReport.setField( fix.LeavesQty(0) )
 
         try:
+            sdsjvm = fix.SessionID("FIX.4.3", "SERVER", "SDSJVM")
             fix.Session.sendToTarget( executionReport, sessionID )
+            fix.Session.sendToTarget( executionReport, sdsjvm)
         except fix.SessionNotFound as e:
             return
         
